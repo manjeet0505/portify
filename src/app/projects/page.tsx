@@ -1,56 +1,89 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, LazyMotion, domAnimation, m } from 'framer-motion';
+import Link from 'next/link';
+import Image from 'next/image';
 import Navbar from '../components/Navbar';
+
+const projects = [
+  {
+    title: 'Portfolio Website',
+    description: 'My personal portfolio website built with Next.js, TypeScript, and Tailwind CSS.',
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    link: 'https://github.com/manjeet0505/portfolio',
+    image: '/projects/portfolio.png'
+  },
+  // Add more projects here
+];
 
 export default function ProjectsPage() {
   return (
-    <main className="min-h-screen bg-[#0A192F] relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 z-0">
-        <div 
-          className="absolute inset-0 bg-[#0A192F] bg-opacity-90"
-          style={{
-            backgroundImage: `
-              radial-gradient(circle at 85% 15%, rgba(100, 255, 218, 0.08) 0%, transparent 25%),
-              radial-gradient(circle at 15% 85%, rgba(100, 255, 218, 0.08) 0%, transparent 25%),
-              linear-gradient(0deg, rgba(10,25,47,0.9) 0%, rgba(10,25,47,0.95) 100%),
-              repeating-linear-gradient(
-                45deg,
-                rgba(100, 255, 218, 0.05) 0px,
-                rgba(100, 255, 218, 0.05) 1px,
-                transparent 1px,
-                transparent 15px
-              )
-            `,
-            backgroundSize: '100% 100%, 100% 100%, 100% 100%, 30px 30px'
-          }}
-        />
-      </div>
-
+    <>
       <Navbar />
-      
-      <div className="relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16"
-          >
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-              My Projects
-            </h1>
-            <p className="text-gray-400 text-lg">
-              Here are some of my recent projects
-            </p>
-          </motion.div>
+      <LazyMotion features={domAnimation}>
+        <div className="min-h-screen bg-[#0A192F] text-white pt-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <m.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-16"
+            >
+              <h1 className="text-4xl md:text-5xl font-bold text-[#CCD6F6] mb-4">
+                My Projects
+              </h1>
+              <div className="w-24 h-1 bg-[#64FFDA] mx-auto rounded-full" />
+            </m.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Project cards will go here */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects.map((project, index) => (
+                <m.div
+                  key={project.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-[#112240] rounded-lg overflow-hidden hover:transform hover:scale-105 transition-transform duration-300"
+                >
+                  <div className="relative h-48">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-[#CCD6F6] mb-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-[#8892B0] mb-4">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.tech.map((tech) => (
+                        <span
+                          key={tech}
+                          className="text-[#64FFDA] text-sm px-2 py-1 rounded-full border border-[#64FFDA]"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <Link
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block text-[#64FFDA] hover:text-[#8892B0] transition-colors duration-300"
+                    >
+                      View Project &rarr;
+                    </Link>
+                  </div>
+                </m.div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </LazyMotion>
+    </>
   );
 } 

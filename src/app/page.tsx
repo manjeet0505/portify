@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';

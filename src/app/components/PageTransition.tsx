@@ -1,45 +1,17 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { usePathname } from 'next/navigation';
-import { ReactNode } from 'react';
+import { motion } from 'framer-motion';
+import { PageTransitionProps } from '@/types/jsx';
 
-const pageVariants = {
-  initial: {
-    opacity: 0,
-    y: 20,
-  },
-  in: {
-    opacity: 1,
-    y: 0,
-  },
-  out: {
-    opacity: 0,
-    y: -20,
-  },
-};
-
-const pageTransition = {
-  type: 'tween',
-  ease: 'anticipate',
-  duration: 0.5,
-};
-
-export default function PageTransition({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
-
+export default function PageTransition({ children }: PageTransitionProps) {
   return (
-    <AnimatePresence>
-      <motion.div
-        key={pathname} // Key change triggers animation
-        initial="initial"
-        animate="in"
-        exit="out"
-        variants={pageVariants}
-        transition={pageTransition}
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
+      {children}
+    </motion.div>
   );
 } 
