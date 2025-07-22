@@ -32,81 +32,88 @@ const Navbar = () => {
   return (
     <LazyMotion features={domAnimation}>
       <m.nav
-        initial={{ y: -80, opacity: 0 }}
+        initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ type: 'spring', stiffness: 80, damping: 12 }}
-        className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] md:w-auto px-4 py-2.5 flex flex-row items-center justify-between rounded-full bg-white/15 backdrop-blur-lg border border-white/15 shadow-lg gap-x-6 group overflow-visible min-h-[48px]"
-        style={{ boxShadow: '0 4px 16px 0 #64FFDA22, 0 1.5px 12px 0 #0A192F33', border: '1px solid #64FFDA15' }}
+        transition={{ type: 'spring', stiffness: 80, damping: 16 }}
+        className="fixed top-4 left-0 right-0 z-50 w-full"
       >
-        <Link href="/" className="flex items-center gap-2 text-xl font-bold text-[#0A192F] tracking-widest select-none relative group/logo">
-          <span className="bg-gradient-to-tr from-[#64FFDA] via-[#5EEAD4] to-[#A5B4FC] animate-gradient-move rounded-full w-9 h-9 flex items-center justify-center text-lg font-bold shadow group-hover/logo:scale-105 group-hover/logo:shadow-[0_0_12px_#64FFDA44] transition-all duration-300">M</span>
-          <span className="ml-1 bg-gradient-to-r from-[#64FFDA] via-[#5EEAD4] to-[#A5B4FC] bg-clip-text text-transparent animate-gradient-move hidden md:block">Manjeet</span>
-        </Link>
-        
-        {/* Desktop Nav */}
-        <div className="hidden md:flex flex-row items-center gap-x-6 ml-6">
-          {navItems.map((item, index) => (
-            <m.div
-              key={item.name}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.06 }}
-            >
+        <div className="mx-auto max-w-4xl w-full flex items-center justify-between px-6 py-2 rounded-3xl bg-gradient-to-br from-[#23263a]/80 via-[#23263a]/60 to-[#23263a]/90 shadow-2xl border border-white/10 backdrop-blur-xl relative" style={{boxShadow:'0 8px 32px 0 #23263a44, 0 1.5px 12px 0 #64FFDA33'}}>
+          {/* Animated border */}
+          <div className="pointer-events-none absolute inset-0 rounded-3xl border-2 border-transparent bg-gradient-to-r from-[#64FFDA44] via-[#A5B4FC33] to-[#5EEAD444] opacity-60 blur-[2px] animate-border-glow" />
+
+          {/* Logo/Brand */}
+          <Link href="/" className="flex items-center gap-2 text-lg font-bold text-white select-none z-10 flex-shrink-0">
+            <span className="bg-gradient-to-tr from-[#64FFDA] via-[#5EEAD4] to-[#A5B4FC] rounded-full w-9 h-9 flex items-center justify-center text-base font-bold shadow-md">M</span>
+            <span className="hidden sm:block tracking-widest font-semibold drop-shadow">Manjeet</span>
+          </Link>
+
+          {/* Centered Nav Links */}
+          <div className="hidden md:flex flex-1 flex items-center justify-center gap-x-8 z-10">
+            {navItems.map((item) => (
               <Link
+                key={item.name}
                 href={item.href}
-                className={`relative text-base font-medium px-3 py-1 rounded-md transition-all duration-150 group/navlink
-                  ${pathname === item.href ? 'bg-gradient-to-r from-[#64FFDA]/30 to-[#A5B4FC]/30 text-[#0A192F] shadow-[0_0_4px_#64FFDA33] scale-100' : 'text-[#0A192F] hover:text-[#64FFDA]'}
-                `}
+                className={`relative px-4 py-1.5 rounded-xl font-medium transition-all duration-200 text-white/90 hover:text-[#64FFDA] hover:scale-105 focus:scale-105 focus:outline-none ${pathname === item.href ? 'bg-white/10 text-[#64FFDA] shadow-inner' : ''}`}
               >
-                <span className="relative z-10 group-hover/navlink:scale-105 transition-transform duration-100">{item.name}</span>
-                <span className={`absolute left-0 -bottom-1 w-full h-0.5 bg-gradient-to-r from-[#64FFDA] to-[#5EEAD4] rounded-full transition-transform duration-150
-                  ${pathname === item.href ? 'scale-x-100 opacity-60' : 'scale-x-0 group-hover/navlink:scale-x-100 opacity-40'}
-                `} />
+                <span className="relative z-10">{item.name}</span>
+                <span className={`absolute left-1/2 -translate-x-1/2 -bottom-1 h-0.5 w-2/3 bg-gradient-to-r from-[#64FFDA] to-[#A5B4FC] rounded-full transition-all duration-200 ${pathname === item.href ? 'opacity-80 scale-x-100' : 'opacity-0 group-hover:opacity-60 group-hover:scale-x-100'}`}></span>
               </Link>
-            </m.div>
-          ))}
-          <div className="ml-6">
+            ))}
+          </div>
+
+          {/* Theme toggle and hamburger */}
+          <div className="flex items-center z-10 flex-shrink-0">
             <ThemeToggle />
+            {/* Hamburger for mobile */}
+            <button
+              className="md:hidden ml-2 text-2xl text-white z-10 focus:outline-none"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Open menu"
+            >
+              {isMenuOpen ? (
+                <svg className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              ) : (
+                <svg className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+              )}
+            </button>
           </div>
-        </div>
 
-        {/* Mobile Nav Toggle */}
-        <div className="md:hidden flex items-center">
-          <ThemeToggle />
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="ml-4 text-2xl text-[#0A192F]">
-            {isMenuOpen ? '✕' : '☰'}
-          </button>
-        </div>
-        
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="absolute top-full right-0 mt-2 w-48 rounded-md shadow-lg bg-white/50 backdrop-blur-lg ring-1 ring-black ring-opacity-5 md:hidden">
-            <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="block px-4 py-2 text-sm text-[#0A192F] hover:bg-gray-100/50"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
+          {/* Mobile Menu Overlay */}
+          {isMenuOpen && (
+            <div className="fixed inset-0 z-40 flex items-start justify-center pt-24 bg-black/40 md:hidden" onClick={() => setIsMenuOpen(false)}>
+              <div className="bg-[#23263a]/95 rounded-2xl shadow-2xl py-6 px-8 flex flex-col items-center gap-4 w-[90vw] max-w-xs border border-white/10" onClick={e => e.stopPropagation()}>
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`w-full text-center px-3 py-2 rounded-md font-medium text-lg transition-all duration-150 text-white/90 hover:text-[#64FFDA] ${pathname === item.href ? 'bg-white/10 text-[#64FFDA]' : ''}`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-
-        <style jsx global>{`
-          @keyframes gradient-move {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-          }
-          .animate-gradient-move {
-            background-size: 200% 200%;
-            animation: gradient-move 4s ease-in-out infinite;
-          }
-        `}</style>
+          )}
+          <style jsx global>{`
+            @keyframes gradient-move {
+              0% { background-position: 0% 50%; }
+              50% { background-position: 100% 50%; }
+              100% { background-position: 0% 50%; }
+            }
+            .animate-gradient-move {
+              background-size: 200% 200%;
+              animation: gradient-move 4s ease-in-out infinite;
+            }
+            @keyframes border-glow {
+              0%, 100% { opacity: 0.6; }
+              50% { opacity: 1; }
+            }
+            .animate-border-glow {
+              animation: border-glow 3s ease-in-out infinite;
+            }
+          `}</style>
+        </div>
       </m.nav>
     </LazyMotion>
   );
