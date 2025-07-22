@@ -29,14 +29,14 @@ export default function ContactPage() {
     try {
       const emailjs = (await import('emailjs-com')).default;
       await emailjs.send(
-        'service_cg3zx6g',
-        'template_f8vzqy5',
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         {
           name: form.name,
           email: form.email,
           message: form.message,
         },
-        'tUn6wjMO9RrHMRLJF'
+        process.env.NEXT_PUBLIC_EMAILJS_USER_ID!
       );
       setLoading(false);
       setSubmitted(true);
