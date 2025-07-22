@@ -1,0 +1,27 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A192F;" />
+      <stop offset="100%" style="stop-color:#112240;" />
+    </linearGradient>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#64FFDA;" />
+      <stop offset="100%" style="stop-color:#A5B4FC;" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  
+  <!-- Logo -->
+  <g transform="translate(150, 225)">
+    <rect width="180" height="180" rx="24" fill="url(#logoGrad)"/>
+    <text x="90" y="95" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="#0A192F">M</text>
+  </g>
+  
+  <!-- Text -->
+  <text x="400" y="280" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#CCD6F6">
+    Manjeet Mishra
+  </text>
+  <text x="400" y="360" font-family="Arial, sans-serif" font-size="42" fill="#8892B0">
+    Full-Stack Developer Portfolio
+  </text>
+</svg> 

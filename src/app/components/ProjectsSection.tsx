@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink } from 'react-icons/fi';
 import ProjectImage from './ProjectImage';
+import Tilt from 'react-parallax-tilt';
 
 interface ProjectsSectionProps {
   hideHeader?: boolean;
@@ -10,28 +11,28 @@ interface ProjectsSectionProps {
 
 const projects = [
   {
-    title: 'Portfolio Website',
-    description: 'A modern portfolio website built with Next.js 14, TypeScript, and Tailwind CSS. Features smooth animations, responsive design, and dark theme.',
-    tech: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-    github: 'https://github.com/manjeet0505/portfolio',
-    live: 'https://manjeet-mishra.netlify.app',
-    image: '/portfolio.png'
+    title: 'ExpenseX',
+    description: 'Track expenses, set budgets, and achieve your financial goals with our powerful personal finance tracker. Take control of your financial future with easy-to-use tools and insightful analytics.',
+    tech: ['Next.js', 'Node.js', 'Google OAuth', 'Tailwind CSS'],
+    github: 'https://github.com/manjeet0505/Expense',
+    live: 'https://expense-bay-mu.vercel.app/',
+    image: '/expense.png' // Updated to ExpenseX image
   },
   {
-    title: 'Task Management App',
-    description: 'A full-stack task management application with features like task creation, status updates, and priority management.',
-    tech: ['React', 'Node.js', 'MongoDB', 'Express'],
-    github: 'https://github.com/manjeet0505/task-management',
-    live: 'https://task-management-manjeet.netlify.app',
-    image: '/task-app.png'
+    title: 'Senior Junior Connect',
+    description: 'A platform designed to connect seniors and juniors for mentorship, collaboration, and knowledge sharing. Features user profiles, messaging, and project boards. Currently in testing phase and not yet deployed.',
+    tech: ['Next.js', 'Node.js', 'MongoDB', 'Tailwind CSS'],
+    github: '', // Add GitHub link if available
+    live: 'Testing (Not Deployed)',
+    image: '/senior-junior.png'
   },
   {
-    title: 'Weather Dashboard',
-    description: 'A weather dashboard that shows current weather and forecasts for multiple cities. Uses OpenWeather API for real-time data.',
-    tech: ['React', 'OpenWeather API', 'Chart.js', 'Tailwind CSS'],
-    github: 'https://github.com/manjeet0505/weather-dashboard',
-    live: 'https://weather-manjeet.netlify.app',
-    image: '/weather.png'
+    title: 'Portfolio Builder',
+    description: 'A web application to easily create and customize your own portfolio website. Features a user-friendly dashboard, live preview, and instant deployment.',
+    tech: ['Next.js', 'React', 'Tailwind CSS'],
+    github: 'https://github.com/Muskanchauhan29/portfoliobuilder',
+    live: 'https://portfoliobuilder-mocha.vercel.app/',
+    image: '/portfoliobuilder.png'
   }
 ];
 
@@ -73,10 +74,10 @@ export default function ProjectsSection({ hideHeader = false }: ProjectsSectionP
             className="text-center space-y-4"
             variants={fadeInUp}
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-[#CCD6F6]">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-800 dark:text-[#CCD6F6]">
               Featured Projects
             </h2>
-            <p className="text-xl text-[#8892B0] max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-[#8892B0] max-w-2xl mx-auto">
               Here are some of my recent works
             </p>
           </motion.div>
@@ -85,78 +86,108 @@ export default function ProjectsSection({ hideHeader = false }: ProjectsSectionP
         {/* Projects Grid */}
         <div className="grid grid-cols-1 gap-20">
           {projects.map((project, index) => (
-            <motion.div
+            <Tilt
+              glareEnable={true}
+              glareMaxOpacity={0.12}
+              tiltMaxAngleX={10}
+              tiltMaxAngleY={10}
+              scale={1.02}
+              className="w-full"
               key={project.title}
-              variants={fadeInUp}
-              className={`flex flex-col ${
-                index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-              } gap-8 items-center`}
             >
-              {/* Project Image */}
-              <motion.div 
-                className="relative w-full lg:w-3/5 aspect-video rounded-lg overflow-hidden shadow-xl shadow-[#112240]/50 group"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
+              <motion.div
+                variants={fadeInUp}
+                whileHover={{
+                  scale: 1.035,
+                  boxShadow: '0 8px 40px 0 #64FFDA55',
+                  borderColor: '#64FFDA',
+                  transition: { duration: 0.3 }
+                }}
+                transition={{ duration: 0.5, type: 'spring', stiffness: 80 }}
+                className={`flex flex-col ${
+                  index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                } gap-8 items-center bg-white/70 dark:bg-[#112240]/70 rounded-2xl border-2 border-gray-200/20 dark:border-[#64FFDA]/20 shadow-2xl backdrop-blur-md p-6 group transition-all duration-300 relative overflow-hidden`}
+                style={{ zIndex: 1 }}
               >
-                <div className="absolute inset-0 bg-[#64FFDA]/10 group-hover:bg-transparent transition-colors duration-300 z-10" />
-                <ProjectImage src="/2593068.webp" alt={project.title} />
-              </motion.div>
-
-              {/* Project Info */}
-              <div className="w-full lg:w-2/5 space-y-4">
-                <motion.h3 
-                  className="text-2xl font-bold text-[#CCD6F6]"
-                  whileHover={{ x: 10 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {project.title}
-                </motion.h3>
-                
+                {/* Animated Gradient Border */}
+                <motion.div
+                  className="absolute inset-0 rounded-2xl pointer-events-none z-0"
+                  animate={{
+                    opacity: [0.7, 1, 0.7],
+                    boxShadow: [
+                      '0 0 0px #64FFDA',
+                      '0 0 32px 8px #64FFDA',
+                      '0 0 0px #64FFDA'
+                    ]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                {/* Project Image */}
                 <motion.div 
-                  className="bg-[#112240] p-6 rounded-lg shadow-xl relative z-10"
-                  whileHover={{ y: -5 }}
+                  className="relative w-full lg:w-3/5 aspect-video rounded-xl overflow-hidden shadow-xl shadow-[#112240]/50 group-hover:shadow-[0_4px_32px_#64FFDA44] group-hover:scale-105 group-hover:rotate-1 transition-all duration-300"
+                  whileHover={{ scale: 1.04, rotate: 1 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <p className="text-[#8892B0]">{project.description}</p>
+                  <div className="absolute inset-0 bg-[#64FFDA]/10 group-hover:bg-transparent transition-colors duration-300 z-10" />
+                  <ProjectImage src={project.image} alt={project.title} />
                 </motion.div>
 
-                <div className="flex flex-wrap gap-3">
-                  {project.tech.map((tech) => (
-                    <motion.span
-                      key={tech}
-                      className="text-[#64FFDA] text-sm font-mono"
-                      whileHover={{ y: -2 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </div>
+                {/* Project Info */}
+                <div className="w-full lg:w-2/5 space-y-4">
+                  <motion.h3 
+                    className="text-2xl font-bold text-gray-800 dark:text-[#CCD6F6]"
+                    whileHover={{ x: 10 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {project.title}
+                  </motion.h3>
+                  
+                  <motion.div 
+                    className="bg-white/70 dark:bg-[#112240] p-6 rounded-lg shadow-xl relative z-10"
+                    whileHover={{ y: -5 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <p className="text-gray-700 dark:text-[#8892B0]">{project.description}</p>
+                  </motion.div>
 
-                <div className="flex gap-4">
-                  <motion.a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#CCD6F6] hover:text-[#64FFDA] transition-colors duration-300"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <FiGithub className="text-2xl" />
-                  </motion.a>
-                  <motion.a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#CCD6F6] hover:text-[#64FFDA] transition-colors duration-300"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <FiExternalLink className="text-2xl" />
-                  </motion.a>
+                  <div className="flex flex-wrap gap-3">
+                    {project.tech.map((tech) => (
+                      <motion.span
+                        key={tech}
+                        className="text-teal-500 dark:text-[#64FFDA] text-sm font-mono"
+                        whileHover={{ y: -2 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {tech}
+                      </motion.span>
+                    ))}
+                  </div>
+
+                  <div className="flex gap-4">
+                    <motion.a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-700 dark:text-[#CCD6F6] hover:text-teal-500 dark:hover:text-[#64FFDA] transition-colors duration-300"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FiGithub className="text-2xl" />
+                    </motion.a>
+                    <motion.a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-700 dark:text-[#CCD6F6] hover:text-teal-500 dark:hover:text-[#64FFDA] transition-colors duration-300"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FiExternalLink className="text-2xl" />
+                    </motion.a>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </Tilt>
           ))}
         </div>
       </motion.div>
